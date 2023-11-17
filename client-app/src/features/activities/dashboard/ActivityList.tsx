@@ -2,10 +2,11 @@ import React, { SyntheticEvent, useState } from "react";
 import { Button, Item, Label, Segment } from "semantic-ui-react";
 import { useStore } from "../../../app/stores/store";
 import { observer } from "mobx-react-lite";
+import { Link, NavLink } from "react-router-dom";
 
 export default observer (function ActivityList () {
     const {activityStore} = useStore();
-    const {deleteActivity, selectActivity, activitiesByDate, loading} = activityStore;
+    const {deleteActivity, activitiesByDate, loading} = activityStore;
 
     const [target, setTarget] = useState('');
 
@@ -27,7 +28,7 @@ export default observer (function ActivityList () {
                                 <div>{activity.city}, {activity.venue}</div>
                             </Item.Description>
                             <Item.Extra>
-                                <Button onClick={() => selectActivity(activity.id)} floated="right" content='View' color="blue"/>
+                                <Button as ={Link} to={`/activities/${activity.id}`} floated="right" content='View' color="blue"/>
                                 <Button 
                                 name={activity.id}
                                 loading={loading && target === activity.id} 
